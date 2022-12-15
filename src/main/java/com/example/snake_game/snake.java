@@ -104,7 +104,38 @@ public class snake extends Application {
         }
         for (int i = snake.size() - 1; i>=1; i--) {
             snake.get(i).x = snake.get(i-1).x;
+            snake.get(i).y = snake.get(i-1).y;
         }
+
+        switch (direction) {
+            case up:
+                snake.get(0).y--;
+                if(snake.get(0).y < 0) {
+                    gameOver = true;
+                }
+            case down:
+                snake.get(0).y++;
+                if(snake.get(0).y > height) {
+                    gameOver = true;
+                }
+            case left:
+                snake.get(0).x--;
+                if(snake.get(0).x < 0) {
+                    gameOver = true;
+                }
+            case right:
+                snake.get(0).x++;
+                if(snake.get(0).x > width) {
+                    gameOver = true;
+                }
+                break;
+        }
+        if(foodX == snake.get(0).x && foodY == snake.get(0).y) {
+            snake.add(new Corner(-1,-1));
+            newFood();
+        }
+
+
     }
     public static void newFood() {
         start: while(true) {
