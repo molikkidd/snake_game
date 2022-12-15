@@ -1,9 +1,13 @@
 package com.example.snake_game;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -63,6 +67,25 @@ public class snake extends Application {
                     }
                 }
             }.start();
+
+            Scene scene = new Scene(root, width*cornersize, height*cornersize);
+
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+                if(keyEvent.getCode() == KeyCode.W) {
+                    direction = Dir.up;
+                }
+                if(keyEvent.getCode() == KeyCode.A) {
+                    direction = Dir.left;
+                }
+                if(keyEvent.getCode() == KeyCode.S) {
+                    direction = Dir.down;
+                }
+                if(keyEvent.getCode() == KeyCode.D) {
+                    direction = Dir.right;
+                }
+            });
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,7 +103,7 @@ public class snake extends Application {
             }
             foodcolor = rand.nextInt(5);
             speed++;
-
+            break;
         }
     }
 }
