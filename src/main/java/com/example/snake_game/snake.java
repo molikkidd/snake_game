@@ -43,6 +43,8 @@ public class snake extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
+            newFood();
+
             VBox root = new VBox();
             Canvas c = new Canvas(width*cornersize,height*cornersize);
             GraphicsContext gc = c.getGraphicsContext2D();
@@ -66,5 +68,19 @@ public class snake extends Application {
         }
     }
 
+    public static void newFood() {
+        start: while(true) {
+            foodX = rand.nextInt(width);
+            foodY = rand.nextInt(height);
 
+            for(Corner c:snake) {
+                if(c.x == foodX && c.y == foodY) {
+                    continue start;
+                }
+            }
+            foodcolor = rand.nextInt(5);
+            speed++;
+
+        }
+    }
 }
