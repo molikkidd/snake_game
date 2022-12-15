@@ -61,11 +61,13 @@ public class snake extends Application {
                 public void handle (long now) {
                     if(lastTick == 0) {
                         lastTick = now;
+                        tick(gc);
                         return;
                     }
 
                     if(now - lastTick > 1000000000/ speed) {
                         lastTick = now;
+                        tick(gc);
                     }
                 }
             }.start();
@@ -91,7 +93,7 @@ public class snake extends Application {
             snake.add(new Corner(width/2,height/2));
             snake.add(new Corner(width/2,height/2));
 
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+//            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.setTitle("SNAKE GAME");
             primaryStage.show();
@@ -150,6 +152,27 @@ public class snake extends Application {
         gc.setFill(Color.WHITE);
         gc.setFont(new Font("",30));
         gc.fillText("Score",+(speed-6), 10,30);
+
+        Color cc = Color.WHITE;
+
+        switch (foodcolor) {
+            case 0: cc = Color.PURPLE;
+                break;
+            case 1: cc = Color.BLUE;
+                break;
+            case 2: cc = Color.GREEN;
+                break;
+            case 3: cc = Color.ORANGE;
+                break;
+            case 4: cc = Color.RED;
+                break;
+        }
+
+        gc.setFill(cc);
+        gc.fillOval(foodX*cornersize, foodY*cornersize, cornersize, cornersize);
+
+//        snake
+
     }
     public static void newFood() {
         start: while(true) {
