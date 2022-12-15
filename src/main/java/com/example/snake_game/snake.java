@@ -85,12 +85,27 @@ public class snake extends Application {
                 }
             });
 
+            snake.add(new Corner(width/2,height/2));
+            snake.add(new Corner(width/2,height/2));
+            snake.add(new Corner(width/2,height/2));
+
+            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("SNAKE GAME");
+            primaryStage.show();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    public static void tick(GraphicsContext gc) {
+        if(gameOver) {
+            return;
+        }
+        for (int i = snake.size() - 1; i>=1; i--) {
+            snake.get(i).x = snake.get(i-1).x;
+        }
+    }
     public static void newFood() {
         start: while(true) {
             foodX = rand.nextInt(width);
