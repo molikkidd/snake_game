@@ -42,9 +42,6 @@ public class snake extends Application {
             this.y = y;
         }
     }
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -120,16 +117,19 @@ public class snake extends Application {
                 if(snake.get(0).y < 0) {
                     gameOver = true;
                 }
+                break;
             case down:
                 snake.get(0).y++;
                 if(snake.get(0).y > height) {
                     gameOver = true;
                 }
+                break;
             case left:
                 snake.get(0).x--;
                 if(snake.get(0).x < 0) {
                     gameOver = true;
                 }
+                break;
             case right:
                 snake.get(0).x++;
                 if(snake.get(0).x > width) {
@@ -172,7 +172,12 @@ public class snake extends Application {
         gc.fillOval(foodX*cornersize, foodY*cornersize, cornersize, cornersize);
 
 //        snake
-
+        for(Corner c :snake) {
+            gc.setFill(Color.LIGHTGREEN);
+            gc.fillRect(c.x*cornersize, c.y*cornersize, cornersize-1, cornersize-1);
+            gc.setFill(Color.GREEN);
+            gc.fillRect(c.x*cornersize, c.y*cornersize, cornersize-2, cornersize-2);
+        }
     }
     public static void newFood() {
         start: while(true) {
@@ -189,4 +194,8 @@ public class snake extends Application {
             break;
         }
     }
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }
