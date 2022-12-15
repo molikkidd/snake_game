@@ -9,6 +9,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -100,6 +102,9 @@ public class snake extends Application {
     }
     public static void tick(GraphicsContext gc) {
         if(gameOver) {
+            gc.setFill(Color.RED);
+            gc.setFont(new Font("",50));
+            gc.fillText("GAME OVER",100,250);
             return;
         }
         for (int i = snake.size() - 1; i>=1; i--) {
@@ -135,7 +140,16 @@ public class snake extends Application {
             newFood();
         }
 
-
+        for(int i = 1; i < snake.size(); i++) {
+            if(snake.get(0).x == snake.get(i).x && snake.get(0).y == snake.get(i).y){
+                gameOver = true;
+            }
+        }
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0,0,width*cornersize, height*cornersize);
+        gc.setFill(Color.WHITE);
+        gc.setFont(new Font("",30));
+        gc.fillText("Score",+(speed-6), 10,30);
     }
     public static void newFood() {
         start: while(true) {
